@@ -17,6 +17,7 @@ const BookForm = () => {
     const randomBookWithID = {
       ...randomBook,
       id: uuidv4(), //добавление ID к книге, выбранной рандомно, чтобы все отображалось корректно
+      isFavorite: false,
     }
 
     dispatch(addBook(randomBookWithID)) // получение действия типа ADD_BOOK с payload книгой с присвоенным ID
@@ -30,6 +31,7 @@ const BookForm = () => {
         title: title,
         author: author,
         id: uuidv4(),
+        isFavorite: false,
       }
       dispatch(addBook(book))
       setTitle('')
