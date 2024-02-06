@@ -5,6 +5,8 @@ import {
   resetFilters,
   setAuthorFilter,
   selectAuthorFilter,
+  setOnlyFavoriteFilter,
+  selectOnlyFavoriteFilter,
 } from '../../redux/slices/filterSlice'
 import './Filter.css'
 
@@ -12,6 +14,7 @@ const Filter = () => {
   const dispatch = useDispatch()
   const titleFilter = useSelector(selectTitleFilter)
   const authorFilter = useSelector(selectAuthorFilter)
+  const onlyFavoriteFilter = useSelector(selectOnlyFavoriteFilter)
 
   const handleTitleFilterChange = (e) => {
     dispatch(setTitleFilter(e.target.value))
@@ -23,6 +26,10 @@ const Filter = () => {
 
   const handleResetFilters = () => {
     dispatch(resetFilters())
+  }
+
+  const handleOnlyFavoriteFilterChange = (e) => {
+    dispatch(setOnlyFavoriteFilter()) // нет смысла в e.target.checked так как в редюсере используется инверсия переменной
   }
   return (
     <div className="app-block filter">
@@ -42,6 +49,16 @@ const Filter = () => {
             placeholder="Filter by Author"
             onChange={handeAuthorFilterChange}
           />
+        </div>
+        <div className="filter-group">
+          <label>
+            <input
+              type="checkbox"
+              checked={onlyFavoriteFilter}
+              onChange={handleOnlyFavoriteFilterChange}
+            />
+            Only Favorite
+          </label>
         </div>
       </div>
       <button type="button" onClick={handleResetFilters}>

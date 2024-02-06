@@ -3,8 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   title: '',
   author: '',
-  // todo:
-  // onlyFavorite
+  onlyFavorite: false,
 }
 
 const filterSlice = createSlice({
@@ -18,18 +17,26 @@ const filterSlice = createSlice({
     setAuthorFilter: (state, action) => {
       state.author = action.payload
     },
-    resetFilters: (state) => {
+    setOnlyFavoriteFilter: (state) => {
+      state.onlyFavorite = !state.onlyFavorite //поскольку onlyFavorite является логическим значением то можно использовать инверсию
+    },
+    resetFilters: () => {
       // вернуть фильтры в состояние по умолчанию
       return initialState
     },
   },
 })
 
-export const { setTitleFilter, resetFilters, setAuthorFilter } =
-  filterSlice.actions // экспорт actionCreator
+export const {
+  setTitleFilter,
+  resetFilters,
+  setAuthorFilter,
+  setOnlyFavoriteFilter,
+} = filterSlice.actions // экспорт actionCreator
 
 export const selectTitleFilter = (state) => state.filter.title // используется для работы с useSelector в компоненте
 export const selectAuthorFilter = (state) => state.filter.author
+export const selectOnlyFavoriteFilter = (state) => state.filter.onlyFavorite
 
 // console.log(filterSlice.actions) // замена actionCreators
 // console.log(filterSlice.actions.setTitleFilter('test')) // передача payload
