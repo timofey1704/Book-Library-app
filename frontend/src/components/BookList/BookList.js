@@ -34,6 +34,20 @@ const BookList = () => {
 
     return matchesTitle && matchesAuthor && mathesFavorite
   })
+  const highlightMatch = (text, filter) => {
+    if (!filter) return text
+    const regex = new RegExp(`(${filter})`, 'gi') // g - глобальный поиск, i - игнорировать большие и маленькие буквы
+    return text.split(regex).map((substring, index) => {
+      if (substring.toLowerCase() === filter.toLowerCase()) {
+        return (
+          <span key={index} className="highlight">
+            {substring}
+          </span>
+        )
+      }
+      return substring
+    })
+  }
 
   return (
     <div className="app-block book-list">
@@ -45,7 +59,8 @@ const BookList = () => {
           {filteredBooks.map((book, index) => (
             <li key={book.id}>
               <div className="book-info">
-                {++index}. {book.title} by <strong>{book.author}</strong>
+                {++index}. {highlightMatch(book.title, titleFilter)} by{' '}
+                <strong>{highlightMatch(book.author, authorFilter)}</strong>
               </div>
               <div className="book-actions">
                 <span onClick={() => handleToggleFavorite(book.id)}>
