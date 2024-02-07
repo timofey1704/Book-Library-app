@@ -14,14 +14,14 @@ const BookForm = () => {
   const handleAddRandomBook = () => {
     const randomIndex = Math.floor(Math.random() * booksData.length) // получение случайной книги от 1 до n где n = длина массива
     const randomBook = booksData[randomIndex]
-    dispatch(addBook(createBookWithID(randomBook))) // получение действия типа ADD_BOOK с payload книгой с присвоенным ID
+    dispatch(addBook(createBookWithID(randomBook, 'Random'))) // получение действия типа ADD_BOOK с payload книгой с присвоенным ID
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
     if (title && author) {
-      const book = createBookWithID({ title, author })
+      const book = createBookWithID({ title, author }, 'Manual')
       dispatch(addBook(book))
       setTitle('')
       setAuthor('')
@@ -32,7 +32,7 @@ const BookForm = () => {
       const res = await axios.get('http://localhost:4000/random-book')
       if (res?.data?.title && res?.data?.author) {
         // синтаксис ?. позволяет избежать ошибки can't read properties of undefiend если res.data == undefiend
-        dispatch(addBook(createBookWithID(res.data)))
+        dispatch(addBook(createBookWithID(res.data, 'API')))
       }
     } catch (error) {
       console.log('Error fetching random book', error)
