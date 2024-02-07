@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import axios from 'axios'
-import { addBook } from '../../redux/ books/actionCreators'
+import { addBook, thunkFucntion } from '../../redux/slices/booksSlice'
 import createBookWithID from '../../utils/createBookWithID'
 import booksData from '../../data/books.json'
 import './Bookform.css'
@@ -27,16 +26,9 @@ const BookForm = () => {
       setAuthor('')
     }
   }
-  const handleAddRandomBookViaAPI = async () => {
-    try {
-      const res = await axios.get('http://localhost:4000/random-book')
-      if (res?.data?.title && res?.data?.author) {
-        // синтаксис ?. позволяет избежать ошибки can't read properties of undefiend если res.data == undefiend
-        dispatch(addBook(createBookWithID(res.data, 'API')))
-      }
-    } catch (error) {
-      console.log('Error fetching random book', error)
-    }
+
+  const handleAddRandomBookViaAPI = () => {
+    dispatch(thunkFucntion)
   }
 
   return (
