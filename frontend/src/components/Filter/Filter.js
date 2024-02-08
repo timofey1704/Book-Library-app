@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  selectTitleFilter,
   setTitleFilter,
-  resetFilters,
   setAuthorFilter,
-  selectAuthorFilter,
   setOnlyFavoriteFilter,
+  resetFilters,
+  selectTitleFilter,
+  selectAuthorFilter,
   selectOnlyFavoriteFilter,
 } from '../../redux/slices/filterSlice'
 import './Filter.css'
@@ -20,17 +20,18 @@ const Filter = () => {
     dispatch(setTitleFilter(e.target.value))
   }
 
-  const handeAuthorFilterChange = (e) => {
+  const handleAuthorFilterChange = (e) => {
     dispatch(setAuthorFilter(e.target.value))
+  }
+
+  const handleOnlyFavoriteFilterChange = () => {
+    dispatch(setOnlyFavoriteFilter())
   }
 
   const handleResetFilters = () => {
     dispatch(resetFilters())
   }
 
-  const handleOnlyFavoriteFilterChange = (e) => {
-    dispatch(setOnlyFavoriteFilter()) // нет смысла в e.target.checked так как в редюсере используется инверсия переменной
-  }
   return (
     <div className="app-block filter">
       <div className="filter-row">
@@ -46,8 +47,8 @@ const Filter = () => {
           <input
             type="text"
             value={authorFilter}
-            placeholder="Filter by Author"
-            onChange={handeAuthorFilterChange}
+            placeholder="Filter by author..."
+            onChange={handleAuthorFilterChange}
           />
         </div>
         <div className="filter-group">
@@ -60,10 +61,10 @@ const Filter = () => {
             Only Favorite
           </label>
         </div>
+        <button type="button" onClick={handleResetFilters}>
+          Reset Filters
+        </button>
       </div>
-      <button type="button" onClick={handleResetFilters}>
-        Reset Filters
-      </button>
     </div>
   )
 }
