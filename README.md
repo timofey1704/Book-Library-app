@@ -1,5 +1,6 @@
 
 Book Library App
+
 This project is a Book Library Application built using React, Redux, and Express. It allows users to manage their book collection, including adding new books manually, accidentally, accidentally via API, removing, filtering and select their favorite books.
 
 Features
